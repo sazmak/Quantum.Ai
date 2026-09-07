@@ -1,16 +1,20 @@
 <div align="center">
 
-<img width="1200" height="360" alt="image" src="https://github.com/user-attachments/assets/b20969ae-855f-4859-996a-1e84b32d3d2b" />
+<img src="assets/hero.svg" alt="School AI — AI built around your school. Teacher-approved materials, visible sources, and allowed to say I don't know." width="100%">
 
 <br>
 
-[![Stage](https://img.shields.io/badge/stage-pre--pilot-F59E0B?style=for-the-badge&labelColor=0D1117)](docs/ROADMAP.md)
-[![MVP](https://img.shields.io/badge/MVP-0.1-8B5CF6?style=for-the-badge&labelColor=0D1117)](#current-mvp)
-[![Approach](https://img.shields.io/badge/approach-RAG--first-22D3EE?style=for-the-badge&labelColor=0D1117)](docs/ARCHITECTURE.md)
-[![Not production](https://img.shields.io/badge/not-production-64748B?style=for-the-badge&labelColor=0D1117)](#current-status)
-[![License](https://img.shields.io/badge/license-all%20rights%20reserved-334155?style=for-the-badge&labelColor=0D1117)](LICENSE)
+<p align="center">
+  <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/stage-pre--pilot-F59E0B?style=flat-square&labelColor=0D1117" alt="Stage: pre-pilot"></a>
+  <a href="#current-mvp"><img src="https://img.shields.io/badge/MVP-0.1-8B5CF6?style=flat-square&labelColor=0D1117" alt="MVP 0.1"></a>
+  <a href="docs/ARCHITECTURE.md"><img src="https://img.shields.io/badge/approach-RAG--first-22D3EE?style=flat-square&labelColor=0D1117" alt="Approach: RAG-first"></a><br>
+  <a href="#current-status"><img src="https://img.shields.io/badge/not--production-64748B?style=flat-square&labelColor=0D1117" alt="Not production"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-all%20rights%20reserved-334155?style=flat-square&labelColor=0D1117" alt="License: all rights reserved"></a>
+</p>
 
-**English** · [Русский](README.ru.md) · [Қазақша](README.kk.md)
+<p align="center"><strong>English</strong> · <a href="https://github.com/sazmak/Quantum.Ai/blob/readme-visual-identity/README.ru.md">Русский</a> · <a href="https://github.com/sazmak/Quantum.Ai/blob/readme-visual-identity/README.kk.md">Қазақша</a></p>
+
+<p align="center"><a href="https://quantum-ai.grok.me/"><strong>LIVE DEMO</strong></a> · <a href="https://sazmak.github.io/Quantum.Ai/"><strong>LANDING</strong></a></p>
 
 **[Overview](#overview)** · **[How it works](#how-it-works)** · **[Current MVP](#current-mvp)** · **[Architecture](#architecture)** · **[Pilot](#pilot)** · **[Evaluation](#evaluation)** · **[Roadmap](#roadmap)** · **[Partnership](#partnership)**
 
@@ -21,7 +25,9 @@
 > [!IMPORTANT]
 > **Status: Technical MVP → Pre-pilot.** Not production. Not validated at scale. Not claiming product–market fit.
 >
-> **Closed test prototype (not production):** [school-ai-lab demo](https://school-ai-lab.proud-spice-8211.chatgpt.site)
+> **Live MVP:** [quantum-ai.grok.me](https://quantum-ai.grok.me/)
+>
+> **Landing page:** [sazmak.github.io/Quantum.Ai](https://sazmak.github.io/Quantum.Ai/)
 
 ## Overview
 
@@ -33,10 +39,7 @@ The product is intentionally scoped to **one school at a time**. The first deplo
 
 ## How it works
 
-
-<img width="1200" height="440" alt="image" src="https://github.com/user-attachments/assets/45029441-d5b7-43db-a974-245d210a9abb" />
-
-
+![How an answer is produced: the student asks, the system retrieves from teacher-approved materials, the model generates conditioned on those chunks, and the answer ships with its sources — or the system refuses when retrieval is insufficient.](assets/how-it-works.svg)
 
 The rule that shapes everything else: **no approved source, no confident answer.** Refusing is a designed outcome, not a failure.
 
@@ -66,7 +69,7 @@ We will not claim learning improvement, adoption, or superiority over ChatGPT un
 
 ## Product
 
-<img width="1200" height="560" alt="image" src="https://github.com/user-attachments/assets/c7f92135-a5d3-4bd3-8d7d-91357ba1aa6e" />
+![Capability map: Ask Quantum is partially real; Tutor Mode, Exam Prep, Flashcards, Tests, Exam Simulator, Study Plan and Teacher Insights are stated intent, not implemented.](assets/capabilities.svg)
 
 Directions under consideration — not all are in the current MVP:
 
@@ -115,10 +118,13 @@ See **[docs/PRODUCT.md](docs/PRODUCT.md)** for users, jobs-to-be-done, and expli
 > [!NOTE]
 > **Honest label:** MVP 0.1 is a retrieval-oriented prototype with demo content. Source-grounded LLM answers on real Quantum materials are the goal of **v0.2**.
 
+### Repository scope
+
+This public repository contains the landing page, pre-pilot documentation, evaluation notes, research notes, and project issues. **Application source is currently private; this repository contains public pre-pilot documentation and landing.**
+
 ## Architecture
 
-<img width="1200" height="620" alt="image" src="https://github.com/user-attachments/assets/021a928d-51fe-43f9-aa00-5dd4e6bd6cee" />
-
+![Target pilot architecture: a client layer, a pilot backend of App API, retriever, LLM and citation checks, and an approved school knowledge index. Status dots mark what exists in MVP 0.1, what is partial, and what is not yet built.](assets/architecture.svg)
 
 - **Current (0.1)** — Web app + retrieval over demo notes; the LLM path is not validated as a connected school pilot stack.
 - **Target pilot** — Approved Quantum materials → retrieve → generate with citations → refuse when sources are insufficient.
@@ -142,7 +148,7 @@ Full phases, exit criteria, and stop rules: **[docs/PILOT_PLAN.md](docs/PILOT_PL
 
 ## Evaluation
 
-<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/9f9776fe-110c-43ee-85d6-d1cdfc11f7fd" />
+![Evaluation scoreboard with every metric slot deliberately empty: correctness, source accuracy, usefulness, hallucination rate, latency, repeat usage and teacher feedback all read "no data yet".](assets/evaluation.svg)
 
 Planned metrics — **no fabricated scores in this repo**:
 
@@ -188,7 +194,7 @@ Concept  →  Technical MVP  →  Pre-pilot  →  (later) Pilot results
 
 ## Roadmap
 
-<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/890e598f-f9ce-4f70-a636-c06af8bbd6f8" />
+![Validation-first roadmap: v0.1 retrieval prototype is the current stage, followed by v0.2 grounded answers, then the pilot, then post-pilot build-or-stop decisions. Each stage is gated on evidence.](assets/roadmap.svg)
 
 | Stage | Focus |
 | :--- | :--- |
@@ -212,10 +218,17 @@ ALEM-oriented brief: **[docs/ALEM_BRIEF.md](docs/ALEM_BRIEF.md)**.
 
 > We are not asking for hardware for its own sake. Infrastructure should follow a measured pilot plan.
 
+## Founder
+
+**Sanzhar Oral** · Astana, Kazakhstan
+
+Building School AI and leading the proposed Quantum STEM pilot.
+
+GitHub: [@sazmak](https://github.com/sazmak)
+
 ## Documentation
 
-<img width="1200" height="470" alt="image" src="https://github.com/user-attachments/assets/ea88f187-0d66-4a69-ac37-480d80968de9" />
-
+![Three reading paths through the repository: start here, build and measure, and pilot and partners — each column listing the files that belong to it.](assets/docs-map.svg)
 
 | Doc | Purpose |
 | :--- | :--- |
@@ -250,8 +263,6 @@ Source and materials in this repository are **All Rights Reserved** until a publ
 <div align="center">
 
 <img src="assets/logo.svg" alt="" width="44">
-<img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/5fb22e62-8eda-4cb7-afb7-5ffcaec12d85" />
-
 
 **School AI / Quantum AI**
 
