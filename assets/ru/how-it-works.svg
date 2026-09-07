@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img" aria-label="Как рождается ответ: ученик спрашивает, система ищет в одобренных материалах, модель отвечает с опорой на найденные фрагменты и приводит источники — или отказывается, если материалов не хватает.">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080D1E"/>
+      <stop offset="100%" stop-color="#0E1633"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A2450" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#111938" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="hr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#22D3EE"/>
+      <stop offset="70%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#7C86C4"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#F59E0B"/>
+    </marker>
+    <pattern id="dots2" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1" fill="#5B6BA8" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="440" rx="16" fill="url(#bg2)"/>
+  <rect width="1200" height="440" rx="16" fill="url(#dots2)"/>
+
+  <text x="48" y="52" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#EAF0FF">Как рождается ответ</text>
+  <text x="48" y="76" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13.5" fill="#8E9CC8">Целевое поведение пилота. Шаги 2&#8211;4 — цель v0.2; сегодня работает только поиск по демо-заметкам.</text>
+  <rect x="48" y="92" width="1104" height="1.5" fill="url(#hr)"/>
+
+  <g stroke="#4A5691" stroke-width="1.8" fill="none" marker-end="url(#arrow)">
+    <path d="M 302 200 L 328 200"/>
+    <path d="M 586 200 L 612 200"/>
+    <path d="M 870 200 L 896 200"/>
+  </g>
+
+  <g transform="translate(48 126)">
+    <rect width="254" height="148" rx="14" fill="url(#card)" stroke="#2E3A6E"/>
+    <rect x="0" y="0" width="254" height="3" rx="1.5" fill="#22D3EE" opacity="0.9"/>
+    <g transform="translate(20 22)">
+      <rect width="34" height="34" rx="10" fill="#22D3EE" fill-opacity="0.14" stroke="#22D3EE" stroke-opacity="0.45"/>
+      <g transform="translate(9 9)" stroke="#67E8F9" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 4.5 C1 2.6 2.6 1 4.5 1 L11.5 1 C13.4 1 15 2.6 15 4.5 L15 9.5 C15 11.4 13.4 13 11.5 13 L6 13 L2.5 15.6 L2.5 13 L1 13 Z"/>
+        <path d="M6.2 5.4 C6.2 4.2 7.1 3.5 8.1 3.5 C9.2 3.5 10 4.2 10 5.2 C10 6.6 8.2 6.6 8.2 8"/>
+      </g>
+      <text x="46" y="15" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#67E8F9">ШАГ 01</text>
+      <text x="46" y="31" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16.5" font-weight="700" fill="#EAF0FF">Ученик спрашивает</text>
+    </g>
+    <text font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#98A5CE">
+      <tspan x="20" y="94">Вопрос по домашней работе</tspan>
+      <tspan x="20" y="112">или подготовке к экзамену,</tspan>
+      <tspan x="20" y="130">в контексте реального урока.</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(332 126)">
+    <rect width="254" height="148" rx="14" fill="url(#card)" stroke="#2E3A6E"/>
+    <rect x="0" y="0" width="254" height="3" rx="1.5" fill="#818CF8" opacity="0.9"/>
+    <g transform="translate(20 22)">
+      <rect width="34" height="34" rx="10" fill="#818CF8" fill-opacity="0.14" stroke="#818CF8" stroke-opacity="0.45"/>
+      <g transform="translate(9 9)" stroke="#A5B4FC" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 2.5 L9 2.5 L11.5 5 L11.5 13.5 L2 13.5 Z"/>
+        <path d="M4.5 6.5 L8.5 6.5 M4.5 9.5 L7 9.5"/>
+        <circle cx="12.2" cy="11.2" r="3.4"/>
+        <path d="M14.7 13.7 L16.5 15.5"/>
+      </g>
+      <text x="46" y="15" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#A5B4FC">ШАГ 02</text>
+      <text x="46" y="31" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16.5" font-weight="700" fill="#EAF0FF">Поиск</text>
+    </g>
+    <text font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#98A5CE">
+      <tspan x="20" y="94">Только </tspan><tspan fill="#C7D2FE" font-weight="600">одобренные</tspan>
+      <tspan x="20" y="112">учителем материалы —</tspan>
+      <tspan x="20" y="130">не открытый интернет.</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(616 126)">
+    <rect width="254" height="148" rx="14" fill="url(#card)" stroke="#2E3A6E"/>
+    <rect x="0" y="0" width="254" height="3" rx="1.5" fill="#A78BFA" opacity="0.9"/>
+    <g transform="translate(20 22)">
+      <rect width="34" height="34" rx="10" fill="#A78BFA" fill-opacity="0.14" stroke="#A78BFA" stroke-opacity="0.45"/>
+      <g transform="translate(9 9)" stroke="#C4B5FD" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.5 1 L8 5 L12 6.5 L8 8 L6.5 12 L5 8 L1 6.5 L5 5 Z"/>
+        <path d="M13 10 L13.8 12.2 L16 13 L13.8 13.8 L13 16 L12.2 13.8 L10 13 L12.2 12.2 Z"/>
+      </g>
+      <text x="46" y="15" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#C4B5FD">ШАГ 03</text>
+      <text x="46" y="31" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16.5" font-weight="700" fill="#EAF0FF">Генерация</text>
+    </g>
+    <text font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#98A5CE">
+      <tspan x="20" y="94">Модель отвечает</tspan>
+      <tspan x="20" y="112">с опорой на найденные</tspan>
+      <tspan x="20" y="130">фрагменты.</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(900 126)">
+    <rect width="254" height="148" rx="14" fill="url(#card)" stroke="#2E3A6E"/>
+    <rect x="0" y="0" width="254" height="3" rx="1.5" fill="#34D399" opacity="0.9"/>
+    <g transform="translate(20 22)">
+      <rect width="34" height="34" rx="10" fill="#34D399" fill-opacity="0.14" stroke="#34D399" stroke-opacity="0.45"/>
+      <g transform="translate(9 9)" stroke="#6EE7B7" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2.5 2 L10 2 L13.5 5.5 L13.5 15 L2.5 15 Z"/>
+        <path d="M5 9.5 L7 11.5 L11 7"/>
+      </g>
+      <text x="46" y="15" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#6EE7B7">ШАГ 04</text>
+      <text x="46" y="31" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16.5" font-weight="700" fill="#EAF0FF">Ссылки</text>
+    </g>
+    <text font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#98A5CE">
+      <tspan x="20" y="94">Ответ приходит вместе</tspan>
+      <tspan x="20" y="112">с источниками, которые</tspan>
+      <tspan x="20" y="130">ученик может открыть.</tspan>
+    </text>
+  </g>
+
+  <g stroke="#F59E0B" stroke-width="1.8" fill="none" stroke-dasharray="5 5" marker-end="url(#arrowAmber)" stroke-opacity="0.85">
+    <path d="M 459 274 L 459 322 L 512 322"/>
+  </g>
+
+  <g transform="translate(520 300)">
+    <rect width="634" height="92" rx="14" fill="#F59E0B" fill-opacity="0.07" stroke="#F59E0B" stroke-opacity="0.45"/>
+    <g transform="translate(22 29)">
+      <rect width="34" height="34" rx="10" fill="#F59E0B" fill-opacity="0.16" stroke="#F59E0B" stroke-opacity="0.5"/>
+      <g transform="translate(17 10)" stroke="#FBBF24" stroke-width="1.9" fill="none" stroke-linecap="round">
+        <path d="M0 0 L0 8"/>
+        <path d="M0 12.5 L0 13"/>
+      </g>
+    </g>
+    <text x="76" y="42" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#FCD34D">Когда одобренных источников недостаточно</text>
+    <text x="76" y="66" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#D9C08A">Отказ или «не знаю» — это задуманный исход, а не сбой.</text>
+  </g>
+
+  <g transform="translate(48 300)">
+    <rect width="410" height="92" rx="14" fill="#111938" fill-opacity="0.75" stroke="#2E3A6E"/>
+    <text x="22" y="38" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#7C86C4">ПРАВИЛО</text>
+    <text x="22" y="66" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#D6DEFA">Нет одобренного источника — нет ответа.</text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="1199" height="439" rx="16" fill="none" stroke="#2A3566" stroke-opacity="0.8"/>
+</svg>

@@ -10,6 +10,8 @@
 [![Not production](https://img.shields.io/badge/not-production-64748B?style=for-the-badge&labelColor=0D1117)](#current-status)
 [![License](https://img.shields.io/badge/license-all%20rights%20reserved-334155?style=for-the-badge&labelColor=0D1117)](LICENSE)
 
+**English** · [Русский](README.ru.md) · [Қазақша](README.kk.md)
+
 **[Overview](#overview)** · **[How it works](#how-it-works)** · **[Current MVP](#current-mvp)** · **[Architecture](#architecture)** · **[Pilot](#pilot)** · **[Evaluation](#evaluation)** · **[Roadmap](#roadmap)** · **[Partnership](#partnership)**
 
 </div>
