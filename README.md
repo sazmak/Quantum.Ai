@@ -1,5 +1,7 @@
 # School AI
 
+(https://quantum-ai.grok.me/)
+
 **AI built around your school.**
 
 School AI is a school-specific educational AI platform. Instead of answering from the open internet, it is designed to ground responses in **teacher-approved learning materials** from one school, with visible sources and a clear path to refuse when those sources are insufficient.
