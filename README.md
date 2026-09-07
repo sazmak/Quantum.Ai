@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/hero.svg" alt="School AI — AI built around your school. Teacher-approved materials, visible sources, and allowed to say I don't know." width="100%">
+<img width="1200" height="360" alt="image" src="https://github.com/user-attachments/assets/b20969ae-855f-4859-996a-1e84b32d3d2b" />
 
 <br>
 
