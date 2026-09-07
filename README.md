@@ -1,1 +1,206 @@
-# Quantum.Ai
+# School AI
+
+**AI built around your school.**
+
+School AI is a school-specific educational AI platform. Instead of answering from the open internet, it is designed to ground responses in **teacher-approved learning materials** from one school, with visible sources and a clear path to refuse when those sources are insufficient.
+
+> **Status:** Technical MVP → Pre-pilot. Not production. Not validated at scale. Not claiming product–market fit.
+
+**Closed test prototype (not production):** [school-ai-lab demo](https://school-ai-lab.proud-spice-8211.chatgpt.site)
+
+---
+
+## Overview
+
+Students already use generic AI tools for homework and exam prep. Those tools do not know a school's curriculum, approved notes, or how teachers expect topics to be explained. School AI explores a narrower approach: retrieve from approved school knowledge first, then generate an answer with sources.
+
+The product is intentionally scoped to **one school at a time**. The first deployment is **Quantum AI** for **Quantum STEM School**.
+
+## First deployment: Quantum AI
+
+Starting with a single school keeps the knowledge base small, auditable, and aligned with real classes. Quantum STEM is the first pilot target because it offers a concrete informatics curriculum, identifiable teachers, and a controlled setting to test whether school-grounded answers are more useful than a generic chatbot.
+
+No formal partnership agreement is claimed in this repository. Pilot collaboration with Quantum STEM is what we are working toward.
+
+## Problem
+
+The following are **hypotheses to validate**, not proven facts:
+
+| ID | Hypothesis |
+| --- | --- |
+| H1 | Generic AI lacks the context of a specific school's materials and teaching approach. |
+| H2 | Students already use AI for homework and exam preparation outside class. |
+| H3 | Teacher-approved materials plus citations can make AI more useful and more controllable for a school. |
+| H4 | Exam preparation (practice, weak topics, repetition) may become the main recurring use case. |
+| H5 | A school-scoped RAG system can outperform generic chatbots for school workflows when materials are available. |
+
+We will not claim learning improvement, adoption, or superiority over ChatGPT until independent evaluation and teacher feedback support it.
+
+## Product
+
+Directions under consideration (not all are in the current MVP):
+
+| Capability | Intent | MVP 0.1 |
+| --- | --- | --- |
+| **Ask Quantum** | Student asks questions; answers grounded in approved school materials | Partial (demo notes / prototype UX) |
+| **Tutor Mode** | Hints and guided explanation instead of only final answers | Not implemented |
+| **Exam Prep** | Practice workflows for exams | Not implemented |
+| **Flashcards** | Spaced practice from approved material | Not implemented |
+| **Tests** | Short checks on covered topics | Not implemented |
+| **Exam Simulator** | Timed / structured exam practice | Not implemented |
+| **Study Plan / Reminders** | Planning and nudges | Not implemented |
+| **Teacher Insights** | Aggregated weak topics / repeated questions (no private chats by default) | Not implemented |
+
+See [docs/PRODUCT.md](docs/PRODUCT.md) for users, jobs-to-be-done, and explicit out-of-scope items.
+
+## Current MVP
+
+### Implemented (technical MVP 0.1)
+
+- Closed web prototype with chat UI
+- Search / retrieval over **demo notes** (not yet approved Quantum STEM corpus)
+- Openable sources in the UI
+- Usefulness rating
+- Session export
+
+### Not yet implemented / not yet validated
+
+- Connected production-grade **LLM** answers on real school content
+- **Approved Quantum STEM** materials as the knowledge base
+- Browser QA with real students
+- Independent teacher evaluation
+- Tutor Mode, Exam Prep suite, Teacher Insights
+
+**Honest label:** MVP 0.1 is a retrieval-oriented prototype with demo content. Source-grounded LLM answers on real Quantum materials are the goal of **v0.2**.
+
+## Architecture
+
+Target flow for the pilot (simplified):
+
+```mermaid
+flowchart LR
+  Student --> WebApp[Web App]
+  WebApp --> RAG[Retrieval / RAG]
+  RAG --> Knowledge[Approved School Knowledge]
+  RAG --> LLM[LLM]
+  LLM --> Answer[Answer + Sources]
+  Knowledge --> Answer
+```
+
+- **Current (0.1):** Web app + retrieval over demo notes; LLM path not validated as a connected school pilot stack.
+- **Target pilot:** Approved Quantum materials → retrieve → generate with citations → refuse when sources are insufficient.
+
+Details and local vs cloud trade-offs: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Pilot
+
+Proposed first pilot at **Quantum STEM** (subject to school agreement):
+
+- Subject: informatics (start small)
+- 1–2 teachers
+- Small student group
+- Teacher-approved materials only
+- Independent question benchmark
+- Structured student + teacher feedback
+
+Plan: [docs/PILOT_PLAN.md](docs/PILOT_PLAN.md).
+
+## Evaluation
+
+Planned metrics (no fabricated scores in this repo):
+
+- Correctness (rubric, e.g. 0–2)
+- Source accuracy
+- Usefulness (1–5)
+- Hallucination / error rate
+- Latency
+- Repeat usage (if logged ethically)
+- Teacher feedback
+
+Eval harness notes: [evals/README.md](evals/README.md).
+
+## Privacy
+
+Baseline principles for pre-pilot work:
+
+- Data minimization
+- Prefer approved educational materials over scraping student PII
+- Anonymized / teacher-provided test questions for early eval
+- No unnecessary student identifiers
+- Expanded student pilot **only after** school agreement and a clear data policy
+
+Full principles: [docs/PRIVACY_AND_SAFETY.md](docs/PRIVACY_AND_SAFETY.md).
+
+## Current status
+
+```text
+Concept → Technical MVP → Pre-pilot → (later) Pilot results
+                 ^
+             you are here
+```
+
+| Claim | Status |
+| --- | --- |
+| Working closed prototype | Yes (demo notes) |
+| Real Quantum corpus + LLM pilot | Not yet |
+| Production deployment | No |
+| Validated learning outcomes | No |
+| Product–market fit | Not claimed |
+
+## Roadmap
+
+| Stage | Focus |
+| --- | --- |
+| **v0.1** | Technical retrieval prototype (current) |
+| **v0.2** | Real Quantum material + connected LLM + source-grounded answers |
+| **Pilot** | Teacher + limited students under school agreement |
+| **Post-pilot** | Exam Prep / Tutor / Teacher Insights **only if** results justify build |
+
+Full sequence: [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Partnership
+
+**We are currently looking for:**
+
+- Quantum STEM pilot collaboration
+- ALEM AI mentorship and technical review
+- Model / compute infrastructure guidance
+- AI/ML expertise for RAG evaluation and safe school deployment
+
+ALEM-oriented brief: [docs/ALEM_BRIEF.md](docs/ALEM_BRIEF.md).
+
+We are not asking for hardware for its own sake. Infrastructure should follow a measured pilot plan.
+
+## Documentation
+
+| Doc | Purpose |
+| --- | --- |
+| [docs/PRODUCT.md](docs/PRODUCT.md) | Users, JTBD, scope |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Current vs target architecture |
+| [docs/PILOT_PLAN.md](docs/PILOT_PLAN.md) | Quantum STEM pilot phases |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Validation-first roadmap |
+| [docs/PRIVACY_AND_SAFETY.md](docs/PRIVACY_AND_SAFETY.md) | Privacy & safety principles |
+| [docs/ALEM_BRIEF.md](docs/ALEM_BRIEF.md) | Short brief for ALEM AI Talent Lab |
+| [research/README.md](research/README.md) | Research notes home |
+| [evals/README.md](evals/README.md) | Evaluation approach |
+
+## Contributing / issues
+
+Open GitHub Issues for pilot tasks, bugs, and docs. Templates live in `.github/ISSUE_TEMPLATE/`.
+
+Priority pre-pilot themes:
+
+1. First approved Quantum STEM informatics material
+2. 5–10 teacher-provided student questions
+3. Connect first real LLM
+4. Independent 30–50 question eval set
+5. Privacy / data policy with the school
+6. Exam Prep only after core validation
+
+## License
+
+Source and materials in this repository are **All Rights Reserved** until a public open-source license is explicitly chosen. See [LICENSE](LICENSE).
+
+---
+
+School AI / Quantum AI — pre-pilot documentation for discussion with educators and technical partners.
