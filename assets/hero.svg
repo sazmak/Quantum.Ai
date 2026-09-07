@@ -1,1 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="School AI — AI built around your school. First deployment: Quantum AI for Quantum STEM School."><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#070B1A"/><stop offset="55%" stop-color="#0C1330"/><stop offset="100%" stop-color="#131C46"/></linearGradient><linearGradient id="wordmark" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="52%" stop-color="#C7D2FE"/><stop offset="100%" stop-color="#67E8F9"/></linearGradient><pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#5B6BA8" fill-opacity="0.20"/></pattern></defs><rect width="1200" height="360" rx="18" fill="url(#bg)"/><rect width="1200" height="360" rx="18" fill="url(#dots)"/><g transform="translate(74 0)"><text x="0" y="92" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="4.2" fill="#67E8F9">SCHOOL-GROUNDED EDUCATIONAL AI</text><text x="0" y="172" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="70" font-weight="800" letter-spacing="-1.8" fill="url(#wordmark)">School AI</text><text x="0" y="234" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="25" font-weight="600" fill="#E4EAFF">AI built around your school.</text><text x="0" y="266" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="15" fill="#94A3CF">Teacher-approved materials · visible sources · allowed to say “I don’t know.”</text></g><g transform="translate(965 180)" fill="none" stroke-width="2"><ellipse rx="145" ry="56" stroke="#8B5CF6"/><ellipse rx="145" ry="56" transform="rotate(60)" stroke="#22D3EE"/><ellipse rx="145" ry="56" transform="rotate(120)" stroke="#818CF8"/><circle r="34" fill="#0B1026" stroke="#22D3EE"/></g><rect x="0.5" y="0.5" width="1199" height="359" rx="18" fill="none" stroke="#2A3566"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="School AI — AI built around your school. First deployment: Quantum AI for Quantum STEM School.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070B1A"/>
+      <stop offset="55%" stop-color="#0C1330"/>
+      <stop offset="100%" stop-color="#131C46"/>
+    </linearGradient>
+    <radialGradient id="glowV" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wordmark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="52%" stop-color="#C7D2FE"/>
+      <stop offset="100%" stop-color="#67E8F9"/>
+    </linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="soft2" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#5B6BA8" fill-opacity="0.20"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="360" rx="18" fill="url(#bg)"/>
+  <rect width="1200" height="360" rx="18" fill="url(#dots)"/>
+  <ellipse cx="965" cy="150" rx="330" ry="250" fill="url(#glowV)"/>
+  <ellipse cx="120" cy="360" rx="380" ry="240" fill="url(#glowC)"/>
+
+  <!-- orbital system -->
+  <g transform="translate(965 180)">
+    <circle r="150" fill="none" stroke="#3A4785" stroke-opacity="0.35" stroke-width="1"/>
+    <circle r="112" fill="none" stroke="#3A4785" stroke-opacity="0.25" stroke-width="1" stroke-dasharray="3 7"/>
+
+    <g stroke="#8B5CF6" stroke-opacity="0.55" fill="none" stroke-width="1.6">
+      <ellipse rx="145" ry="56" transform="rotate(0)"/>
+      <ellipse rx="145" ry="56" transform="rotate(60)" stroke="#22D3EE" stroke-opacity="0.5"/>
+      <ellipse rx="145" ry="56" transform="rotate(120)" stroke="#818CF8" stroke-opacity="0.5"/>
+    </g>
+
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="26s" repeatCount="indefinite"/>
+      <circle cx="145" cy="0" r="5.5" fill="#22D3EE"/>
+      <circle cx="145" cy="0" r="11" fill="#22D3EE" filter="url(#soft2)" opacity="0.6"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="60" to="420" dur="34s" repeatCount="indefinite"/>
+      <circle cx="-145" cy="0" r="4.5" fill="#A78BFA"/>
+      <circle cx="-145" cy="0" r="10" fill="#A78BFA" filter="url(#soft2)" opacity="0.6"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="120" to="480" dur="44s" repeatCount="indefinite"/>
+      <circle cx="145" cy="0" r="4" fill="#F472B6"/>
+      <circle cx="145" cy="0" r="9" fill="#F472B6" filter="url(#soft2)" opacity="0.55"/>
+    </g>
+
+    <circle r="52" fill="#8B5CF6" opacity="0.35" filter="url(#soft)"/>
+    <circle r="34" fill="#0B1026" stroke="url(#core)" stroke-width="2"/>
+    <!-- book / knowledge glyph -->
+    <g transform="translate(-15 -12)" stroke="url(#core)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 4 C0 1.6 1.6 0 4 0 L13 0 C14.6 0 15 1 15 2.4 L15 20 C15 21.4 14.6 22 13 22 L4 22 C1.6 22 0 20.8 0 19 Z"/>
+      <path d="M30 4 C30 1.6 28.4 0 26 0 L17 0 C15.4 0 15 1 15 2.4 L15 20 C15 21.4 15.4 22 17 22 L26 22 C28.4 22 30 20.8 30 19 Z"/>
+    </g>
+  </g>
+
+  <!-- copy block -->
+  <g transform="translate(74 0)">
+    <text x="0" y="92" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="4.2" fill="#67E8F9">SCHOOL-GROUNDED EDUCATIONAL AI</text>
+
+    <text x="0" y="172" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-1.8" fill="url(#wordmark)">School AI</text>
+
+    <rect x="2" y="192" width="132" height="3" rx="1.5" fill="url(#rule)"/>
+
+    <text x="0" y="234" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" fill="#E4EAFF">AI built around your school.</text>
+
+    <text x="0" y="266" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#94A3CF">Teacher-approved materials · visible sources · allowed to say &#8220;I don&#8217;t know.&#8221;</text>
+
+    <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600">
+      <g transform="translate(0 288)">
+        <rect width="106" height="30" rx="15" fill="#8B5CF6" fill-opacity="0.16" stroke="#8B5CF6" stroke-opacity="0.55"/>
+        <circle cx="17" cy="15" r="3.5" fill="#A78BFA"/>
+        <text x="30" y="19.5" fill="#C4B5FD">MVP 0.1</text>
+      </g>
+      <g transform="translate(116 288)">
+        <rect width="118" height="30" rx="15" fill="#F59E0B" fill-opacity="0.14" stroke="#F59E0B" stroke-opacity="0.5"/>
+        <circle cx="17" cy="15" r="3.5" fill="#FBBF24"/>
+        <text x="30" y="19.5" fill="#FCD34D">Pre-pilot</text>
+      </g>
+      <g transform="translate(244 288)">
+        <rect width="112" height="30" rx="15" fill="#22D3EE" fill-opacity="0.13" stroke="#22D3EE" stroke-opacity="0.5"/>
+        <circle cx="17" cy="15" r="3.5" fill="#67E8F9"/>
+        <text x="30" y="19.5" fill="#A5F3FC">RAG-first</text>
+      </g>
+      <g transform="translate(366 288)">
+        <rect width="176" height="30" rx="15" fill="#64748B" fill-opacity="0.14" stroke="#64748B" stroke-opacity="0.5"/>
+        <circle cx="17" cy="15" r="3.5" fill="#94A3B8"/>
+        <text x="30" y="19.5" fill="#CBD5E1">Not production</text>
+      </g>
+    </g>
+  </g>
+
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="18" fill="none" stroke="#2A3566" stroke-opacity="0.8"/>
+</svg>
