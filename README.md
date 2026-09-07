@@ -34,7 +34,9 @@ The product is intentionally scoped to **one school at a time**. The first deplo
 ## How it works
 
 
-![How an answer is produced: the student asks, the system retrieves from teacher-approved materials, the model generates conditioned on those chunks, and the answer ships with its sources — or the system refuses when retrieval is insufficient.](<img width="1200" height="440" alt="image" src="https://github.com/user-attachments/assets/3ee07838-66c0-457d-901f-74483ddc44ef" />)
+<img width="1200" height="440" alt="image" src="https://github.com/user-attachments/assets/45029441-d5b7-43db-a974-245d210a9abb" />
+
+
 
 The rule that shapes everything else: **no approved source, no confident answer.** Refusing is a designed outcome, not a failure.
 
@@ -64,7 +66,7 @@ We will not claim learning improvement, adoption, or superiority over ChatGPT un
 
 ## Product
 
-![Capability map: Ask Quantum is partially real; Tutor Mode, Exam Prep, Flashcards, Tests, Exam Simulator, Study Plan and Teacher Insights are stated intent, not implemented.](assets/capabilities.svg)
+<img width="1200" height="560" alt="image" src="https://github.com/user-attachments/assets/c7f92135-a5d3-4bd3-8d7d-91357ba1aa6e" />
 
 Directions under consideration — not all are in the current MVP:
 
@@ -115,7 +117,8 @@ See **[docs/PRODUCT.md](docs/PRODUCT.md)** for users, jobs-to-be-done, and expli
 
 ## Architecture
 
-![Target pilot architecture: a client layer, a pilot backend of App API, retriever, LLM and citation checks, and an approved school knowledge index. Status dots mark what exists in MVP 0.1, what is partial, and what is not yet built.](assets/architecture.svg)
+<img width="1200" height="620" alt="image" src="https://github.com/user-attachments/assets/021a928d-51fe-43f9-aa00-5dd4e6bd6cee" />
+
 
 - **Current (0.1)** — Web app + retrieval over demo notes; the LLM path is not validated as a connected school pilot stack.
 - **Target pilot** — Approved Quantum materials → retrieve → generate with citations → refuse when sources are insufficient.
@@ -139,7 +142,7 @@ Full phases, exit criteria, and stop rules: **[docs/PILOT_PLAN.md](docs/PILOT_PL
 
 ## Evaluation
 
-![Evaluation scoreboard with every metric slot deliberately empty: correctness, source accuracy, usefulness, hallucination rate, latency, repeat usage and teacher feedback all read "no data yet".](assets/evaluation.svg)
+<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/9f9776fe-110c-43ee-85d6-d1cdfc11f7fd" />
 
 Planned metrics — **no fabricated scores in this repo**:
 
@@ -185,7 +188,7 @@ Concept  →  Technical MVP  →  Pre-pilot  →  (later) Pilot results
 
 ## Roadmap
 
-![Validation-first roadmap: v0.1 retrieval prototype is the current stage, followed by v0.2 grounded answers, then the pilot, then post-pilot build-or-stop decisions. Each stage is gated on evidence.](assets/roadmap.svg)
+<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/890e598f-f9ce-4f70-a636-c06af8bbd6f8" />
 
 | Stage | Focus |
 | :--- | :--- |
@@ -211,7 +214,8 @@ ALEM-oriented brief: **[docs/ALEM_BRIEF.md](docs/ALEM_BRIEF.md)**.
 
 ## Documentation
 
-![Three reading paths through the repository: start here, build and measure, and pilot and partners — each column listing the files that belong to it.](assets/docs-map.svg)
+<img width="1200" height="470" alt="image" src="https://github.com/user-attachments/assets/ea88f187-0d66-4a69-ac37-480d80968de9" />
+
 
 | Doc | Purpose |
 | :--- | :--- |
@@ -246,6 +250,8 @@ Source and materials in this repository are **All Rights Reserved** until a publ
 <div align="center">
 
 <img src="assets/logo.svg" alt="" width="44">
+<img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/5fb22e62-8eda-4cb7-afb7-5ffcaec12d85" />
+
 
 **School AI / Quantum AI**
 
