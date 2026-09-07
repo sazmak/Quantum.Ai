@@ -33,6 +33,9 @@ The product is intentionally scoped to **one school at a time**. The first deplo
 
 ## How it works
 
+<img width="1200" height="440" alt="image" src="https://github.com/user-attachments/assets/3ee07838-66c0-457d-901f-74483ddc44ef" />
+
+
 ![How an answer is produced: the student asks, the system retrieves from teacher-approved materials, the model generates conditioned on those chunks, and the answer ships with its sources — or the system refuses when retrieval is insufficient.](assets/how-it-works.svg)
 
 The rule that shapes everything else: **no approved source, no confident answer.** Refusing is a designed outcome, not a failure.
