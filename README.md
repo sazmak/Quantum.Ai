@@ -21,6 +21,7 @@ The product is intentionally scoped to **one school at a time**. The first deplo
 ## First deployment: Quantum AI
 
 Starting with a single school keeps the knowledge base small, auditable, and aligned with real classes. Quantum STEM is the first pilot target because it offers a concrete informatics curriculum, identifiable teachers, and a controlled setting to test whether school-grounded answers are more useful than a generic chatbot.
+<img width="1200" height="620" alt="image" src="https://github.com/user-attachments/assets/17ccd5cf-c2e0-4c97-b814-d0c702d168fd" />
 
 No formal partnership agreement is claimed in this repository. Pilot collaboration with Quantum STEM is what we are working toward.
 
