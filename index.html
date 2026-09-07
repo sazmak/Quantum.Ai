@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="School AI Lab answers from your school's teacher-approved materials, shows the source, and says &quot;I don't know&quot; when those materials don't cover the question. First deployment: Quantum STEM School.">
+<meta name="theme-color" content="#04060E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="School AI Lab">
+<meta property="og:description" content="The school AI that is allowed to say &quot;I don't know.&quot; Grounded in teacher-approved materials, with visible sources.">
+<meta property="og:url" content="https://quantum-ai.grok.me/">
+<meta name="twitter:card" content="summary_large_image">
+<style>*{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+<title>School AI Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap">
+
+<style>
+  :root {
+    --void:      #04060E;
+    --ground:    #080D1E;
+    --ground-2:  #0C1330;
+    --surface:   #131B3C;
+    --surface-2: #1A2450;
+    --line:      #232D5C;
+    --line-soft: #1A2246;
+
+    --text:      #ECF0FF;
+    --text-soft: #98A5CE;
+    --text-mute: #6E7AB8;
+
+    --violet:    #8B5CF6;
+    --violet-lt: #C4B5FD;
+    --cyan:      #22D3EE;
+    --cyan-lt:   #A5F3FC;
+
+    --real:      #34D399;
+    --partial:   #F59E0B;
+    --intent:    #64748B;
+
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+    --pad: clamp(20px, 4vw, 56px);
+    --maxw: 1140px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--void);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: var(--cyan-lt); text-decoration-color: rgba(34, 211, 238, .35); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .shell { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(4, 6, 14, .82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-in {
+    max-width: var(--maxw); margin: 0 auto; padding: 12px var(--pad);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; margin-right: auto; text-decoration: none; color: var(--text); }
+  .brand svg { width: 30px; height: 30px; border-radius: 8px; display: block; }
+  .brand b { font-family: var(--display); font-weight: 700; font-size: 16.5px; letter-spacing: -.01em; }
+  .nav-links { display: flex; gap: 22px; }
+  .nav-links a { color: var(--text-soft); text-decoration: none; font-size: 14.5px; }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--body); font-size: 14.5px; font-weight: 600;
+    padding: 10px 18px; border-radius: 10px;
+    text-decoration: none; white-space: nowrap;
+    border: 1px solid transparent;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #7C4DF0, #22D3EE);
+    color: #05070F;
+    box-shadow: 0 6px 22px -8px rgba(124, 77, 240, .8);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(124, 77, 240, .95); }
+  .btn-ghost { border-color: var(--line); color: var(--text); background: rgba(19, 27, 60, .6); }
+  .btn-ghost:hover { background: var(--surface-2); }
+  .btn-lg { font-size: 16px; padding: 15px 26px; border-radius: 12px; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding: clamp(56px, 9vw, 108px) 0 clamp(48px, 7vw, 84px); }
+  #field { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  .hero .shell { position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--cyan); margin: 0 0 22px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(38px, 6.6vw, 74px);
+    line-height: 1.02;
+    letter-spacing: -.028em;
+    margin: 0;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+  h1 .said {
+    background: linear-gradient(100deg, var(--cyan-lt), var(--violet-lt));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic;
+  }
+
+  .hero p.lede {
+    max-width: 56ch; margin: 26px 0 0;
+    font-size: clamp(16.5px, 1.7vw, 19px); color: var(--text-soft);
+  }
+  .hero p.lede strong { color: var(--text); font-weight: 600; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .cta-note {
+    margin: 16px 0 0; font-family: var(--mono); font-size: 12px;
+    color: var(--text-mute); letter-spacing: .02em;
+  }
+
+  .hero-grid { display: grid; gap: clamp(40px, 5vw, 60px); align-items: start; }
+  @media (min-width: 1060px) {
+    .hero-grid { grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); align-items: center; }
+    .hero-grid .demo { margin-top: 0; }
+    .hero-grid .demo-grid { grid-template-columns: 1fr; }
+    h1 { max-width: 13ch; }
+  }
+
+  /* ---------- demo cards ---------- */
+  .demo { margin-top: clamp(44px, 6vw, 68px); }
+  .demo-label {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--text-mute);
+  }
+  .demo-label::after { content: ""; flex: 1; height: 1px; background: var(--line-soft); }
+
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+
+  .msg {
+    border: 1px solid var(--line); border-radius: 16px;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--ground-2) 100%);
+    padding: 22px 22px 20px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .msg.refuse { border-color: rgba(245, 158, 11, .42); background: linear-gradient(180deg, rgba(60, 44, 16, .5) 0%, var(--ground-2) 100%); }
+
+  .q { font-size: 15px; color: var(--text-soft); display: flex; gap: 10px; }
+  .q::before { content: "?"; font-family: var(--mono); color: var(--cyan); font-weight: 500; flex: none; }
+  .a { font-size: 15.5px; color: var(--text); margin: 0; }
+  .msg.refuse .a { color: #FDE9C4; }
+
+  .src {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 7px 11px; border-radius: 8px;
+    border: 1px solid rgba(52, 211, 153, .35);
+    background: rgba(52, 211, 153, .09); color: #8FE9C4;
+  }
+  .src svg { width: 13px; height: 13px; flex: none; }
+  .refuse-tag {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 7px 11px; border-radius: 8px;
+    border: 1px solid rgba(245, 158, 11, .4);
+    background: rgba(245, 158, 11, .1); color: #FBBF24;
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(56px, 8vw, 104px) 0; }
+  .rule { border: 0; height: 1px; background: var(--line-soft); margin: 0; }
+
+  .kicker {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--violet-lt); margin: 0 0 18px;
+  }
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(28px, 3.9vw, 44px); line-height: 1.08;
+    letter-spacing: -.022em; margin: 0; max-width: 20ch; text-wrap: balance;
+  }
+  .section-lede { max-width: 60ch; color: var(--text-soft); font-size: 17px; margin: 20px 0 0; }
+  .section-lede strong { color: var(--text); font-weight: 600; }
+
+  /* pillars */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 46px; }
+  .pillar { border-top: 2px solid var(--line); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .pillar.p1 { border-top-color: var(--cyan); }
+  .pillar.p2 { border-top-color: var(--violet); }
+  .pillar.p3 { border-top-color: var(--partial); }
+  .pillar h3 { font-family: var(--display); font-weight: 700; font-size: 21px; margin: 0; letter-spacing: -.015em; }
+  .pillar p { margin: 0; color: var(--text-soft); font-size: 15px; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 46px; counter-reset: s; }
+  .step {
+    border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--ground-2) 100%);
+    display: flex; flex-direction: column; gap: 9px; counter-increment: s;
+  }
+  .step .n { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--cyan); }
+  .step h3 { font-family: var(--display); font-weight: 700; font-size: 18px; margin: 0; letter-spacing: -.01em; }
+  .step p { margin: 0; color: var(--text-soft); font-size: 14.5px; }
+
+  .branch {
+    margin-top: 18px; border: 1px solid rgba(245, 158, 11, .4); border-radius: 14px;
+    background: rgba(245, 158, 11, .07); padding: 22px 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .branch .bang {
+    flex: none; width: 34px; height: 34px; border-radius: 10px;
+    border: 1px solid rgba(245, 158, 11, .5); background: rgba(245, 158, 11, .14);
+    display: grid; place-items: center; color: #FBBF24; font-weight: 700; font-family: var(--mono);
+  }
+  .branch h3 { font-family: var(--display); font-weight: 700; font-size: 18px; margin: 0 0 5px; color: #FCD34D; }
+  .branch p { margin: 0; color: #D9C08A; font-size: 15px; }
+
+  /* status */
+  .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 40px; }
+  .status-cell { background: var(--ground-2); padding: 20px; display: flex; flex-direction: column; gap: 7px; }
+  .status-cell .top { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+  .status-cell p { margin: 0; color: var(--text-mute); font-size: 13.5px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .d-real { background: var(--real); box-shadow: 0 0 0 3px rgba(52, 211, 153, .16); }
+  .d-partial { background: var(--partial); box-shadow: 0 0 0 3px rgba(245, 158, 11, .16); }
+  .d-intent { background: var(--intent); box-shadow: 0 0 0 3px rgba(100, 116, 139, .16); }
+
+  figure.diagram { margin: 44px 0 0; }
+  figure.diagram .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--ground); }
+  figure.diagram img { display: block; width: 100%; min-width: 760px; }
+  figure.diagram figcaption { margin-top: 12px; font-size: 13.5px; color: var(--text-mute); }
+
+  /* audience */
+  .who { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 44px; }
+  .who > div { border: 1px solid var(--line); border-radius: 14px; padding: 22px; background: var(--ground-2); }
+  .who h3 { font-family: var(--display); font-weight: 700; font-size: 19px; margin: 0 0 8px; }
+  .who p { margin: 0; color: var(--text-soft); font-size: 14.5px; }
+  .who .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mute); display: block; margin-bottom: 12px; }
+
+  /* final cta */
+  .final { position: relative; overflow: hidden; border-radius: 24px; border: 1px solid var(--line); background: radial-gradient(120% 140% at 15% 0%, rgba(139, 92, 246, .30) 0%, rgba(8, 13, 30, 0) 58%), radial-gradient(100% 130% at 100% 100%, rgba(34, 211, 238, .22) 0%, rgba(8, 13, 30, 0) 55%), var(--ground-2); padding: clamp(34px, 5.5vw, 66px); }
+  .final h2 { max-width: 18ch; }
+  .final p { max-width: 52ch; color: var(--text-soft); font-size: 17px; margin: 20px 0 0; }
+
+  footer { border-top: 1px solid var(--line-soft); padding: 44px 0 64px; color: var(--text-mute); font-size: 14px; }
+  .foot-in { display: flex; flex-wrap: wrap; gap: 26px 40px; align-items: flex-start; }
+  .foot-in .col { display: flex; flex-direction: column; gap: 9px; }
+  .foot-in .col b { color: var(--text-soft); font-size: 12px; font-family: var(--mono); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+  .foot-in a { color: var(--text-soft); text-decoration: none; }
+  .foot-in a:hover { color: var(--text); }
+  .foot-note { margin-top: 34px; max-width: 60ch; font-size: 13px; line-height: 1.6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    figure.diagram img { min-width: 700px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 256 256" aria-hidden="true"><defs><linearGradient id="nl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0A1024"/><stop offset="100%" stop-color="#1B2A6B"/></linearGradient><linearGradient id="ns" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#22D3EE"/></linearGradient></defs><rect width="256" height="256" rx="58" fill="url(#nl)"/><g transform="translate(128 128)"><g fill="none" stroke-width="7"><ellipse rx="92" ry="36" stroke="#8B5CF6" stroke-opacity=".8"/><ellipse rx="92" ry="36" transform="rotate(60)" stroke="#22D3EE" stroke-opacity=".75"/><ellipse rx="92" ry="36" transform="rotate(120)" stroke="#818CF8" stroke-opacity=".75"/></g><circle r="44" fill="#0A1024"/><circle r="44" fill="none" stroke="url(#ns)" stroke-width="6"/><g transform="translate(-21 -17)" stroke="url(#ns)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 5.5C0 2.2 2.2 0 5.5 0L18 0C20.2 0 21 1.4 21 3.3L21 28C21 29.9 20.2 31 18 31L5.5 31C2.2 31 0 29.1 0 26.5Z"/><path d="M42 5.5C42 2.2 39.8 0 36.5 0L24 0C21.8 0 21 1.4 21 3.3L21 28C21 29.9 21.8 31 24 31L36.5 31C39.8 31 42 29.1 42 26.5Z"/></g></g></svg>
+      <b>School AI Lab</b>
+    </a>
+    <div class="nav-links">
+      <a href="#difference">What it does</a>
+      <a href="#how">How it works</a>
+      <a href="#status">Where we are</a>
+    </div>
+    <a class="btn btn-primary" href="https://quantum-ai.grok.me/" target="_blank" rel="noopener">Enter the lab</a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="shell">
+     <div class="hero-grid">
+      <div class="hero-copy">
+      <p class="eyebrow">School AI Lab &nbsp;·&nbsp; first deployment: Quantum STEM School</p>
+
+      <h1>The school AI that is allowed to say <span class="said">I don&rsquo;t know</span>.</h1>
+
+      <p class="lede">Every other homework AI answers from the whole internet. This one answers from <strong>your school&rsquo;s approved materials</strong> &mdash; and shows you the page it came from. When those materials don&rsquo;t cover the question, it tells you instead of guessing.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="https://quantum-ai.grok.me/" target="_blank" rel="noopener">
+          Enter the lab
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#how">How it works</a>
+      </div>
+      <p class="cta-note">Closed prototype &nbsp;·&nbsp; sign in with Google or X &nbsp;·&nbsp; lab interface is in Russian</p>
+      </div>
+
+      <!-- demo -->
+      <div class="demo">
+        <div class="demo-label">Illustrative &mdash; the behaviour we are building toward</div>
+        <div class="demo-grid">
+
+          <div class="msg">
+            <div class="q">Why is binary search O(log n)?</div>
+            <p class="a">Each comparison throws away half of what is left to check. Starting from n items you can only halve about log&#8322;n times before one item remains &mdash; which is why the class notes describe it as a &ldquo;halving&rdquo; search.</p>
+            <span class="src">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h6L13 6v7.5H3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 9.5l1.8 1.8L11 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Informatics 9 &nbsp;·&nbsp; §4 Search algorithms
+            </span>
+          </div>
+
+          <div class="msg refuse">
+            <div class="q">What is going to be on Friday&rsquo;s test?</div>
+            <p class="a">I don&rsquo;t know. Nothing in the approved materials covers what will be on that test &mdash; your teacher is the right person to ask.</p>
+            <span class="refuse-tag">No approved source &rarr; no answer</span>
+          </div>
+
+        </div>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- ============ PROBLEM ============ -->
+  <section>
+    <div class="shell">
+      <p class="kicker">The problem</p>
+      <h2>Your class has a syllabus. The chatbot doesn&rsquo;t.</h2>
+      <p class="section-lede">Students already use AI for homework and exam prep &mdash; that ship has sailed. But a general model has never seen your curriculum, your teacher&rsquo;s notes, or the way your school explains a topic. So the help arrives generic, occasionally confidently wrong, and in a form <strong>a student has no way to check</strong>.</p>
+      <p class="section-lede">A teacher can&rsquo;t vouch for an answer whose source they cannot see. That is the gap this lab exists to close.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ DIFFERENCE ============ -->
+  <section id="difference">
+    <div class="shell">
+      <p class="kicker">What makes it different</p>
+      <h2>Three rules, and the third one is the point.</h2>
+
+      <div class="pillars">
+        <div class="pillar p1">
+          <h3>Grounded</h3>
+          <p>Answers are retrieved from teacher-approved school materials &mdash; the notes and topics your class actually uses &mdash; not from the open web.</p>
+        </div>
+        <div class="pillar p2">
+          <h3>Cited</h3>
+          <p>Every answer carries the source it leaned on, openable in one click. A student can check it; a teacher can audit it.</p>
+        </div>
+        <div class="pillar p3">
+          <h3>Bounded</h3>
+          <p>When the approved sources don&rsquo;t cover a question, it refuses. Saying &ldquo;I don&rsquo;t know&rdquo; is a designed outcome here, not a failure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ HOW ============ -->
+  <section id="how">
+    <div class="shell">
+      <p class="kicker">How an answer is produced</p>
+      <h2>Retrieve first. Then answer. Or don&rsquo;t.</h2>
+      <p class="section-lede">Four steps, in this order. The order is the safety property &mdash; the model never gets to answer before the school&rsquo;s own materials have been consulted.</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="n">STEP 01</span>
+          <h3>Student asks</h3>
+          <p>A homework or exam-prep question, in the context of a real class.</p>
+        </div>
+        <div class="step">
+          <span class="n">STEP 02</span>
+          <h3>Retrieve</h3>
+          <p>Search the teacher-approved material for passages that actually bear on the question.</p>
+        </div>
+        <div class="step">
+          <span class="n">STEP 03</span>
+          <h3>Generate</h3>
+          <p>The model writes an answer conditioned on those passages &mdash; not on its own recollection.</p>
+        </div>
+        <div class="step">
+          <span class="n">STEP 04</span>
+          <h3>Cite</h3>
+          <p>The answer ships with the sources it used, open for the student to read.</p>
+        </div>
+      </div>
+
+      <div class="branch">
+        <div class="bang">!</div>
+        <div>
+          <h3>And when the sources aren&rsquo;t enough</h3>
+          <p>The chain stops. No approved source, no confident answer &mdash; the one rule everything else here is built around.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ STATUS ============ -->
+  <section id="status">
+    <div class="shell">
+      <p class="kicker">Where we actually are</p>
+      <h2>A prototype, honestly labelled.</h2>
+      <p class="section-lede">This is a lab, not a launch. We would rather show you the gaps than a demo that hides them &mdash; so here is the real state of the build, with nothing rounded up.</p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="top"><span class="dot d-real"></span>Closed web prototype</div>
+          <p>Chat interface, openable sources, usefulness rating, session export. Real and running today.</p>
+        </div>
+        <div class="status-cell">
+          <div class="top"><span class="dot d-partial"></span>Retrieval</div>
+          <p>Works &mdash; but over demo notes, not yet the approved Quantum STEM corpus.</p>
+        </div>
+        <div class="status-cell">
+          <div class="top"><span class="dot d-intent"></span>Connected LLM on school content</div>
+          <p>Not yet. Source-grounded answers on real school material are the goal of v0.2.</p>
+        </div>
+        <div class="status-cell">
+          <div class="top"><span class="dot d-intent"></span>Teacher-validated quality</div>
+          <p>Not yet. No evaluation scores exist, so none are published.</p>
+        </div>
+        <div class="status-cell">
+          <div class="top"><span class="dot d-intent"></span>Student pilot</div>
+          <p>Not yet. Only after a school agreement and a written data policy.</p>
+        </div>
+        <div class="status-cell">
+          <div class="top"><span class="dot d-intent"></span>Production deployment</div>
+          <p>No. Nothing here is production, and we don&rsquo;t claim product&ndash;market fit.</p>
+        </div>
+      </div>
+
+      <figure class="diagram">
+        <div class="scroller"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDQwMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNDAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlZhbGlkYXRpb24tZmlyc3Qgcm9hZG1hcDogdjAuMSB0ZWNobmljYWwgcmV0cmlldmFsIHByb3RvdHlwZSAoY3VycmVudCksIHYwLjIgcmVhbCBtYXRlcmlhbCBwbHVzIGNvbm5lY3RlZCBMTE0sIHRoZW4gcGlsb3QsIHRoZW4gcG9zdC1waWxvdCBkZWNpc2lvbnMuIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icmJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwODBEMUUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMEUxNjMzIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJyY2FyZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUEyNDUwIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTExOTM4IiBzdG9wLW9wYWNpdHk9IjAuOTUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InJjYXJkTm93IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyNjMxNUYiIHN0b3Atb3BhY2l0eT0iMC45OCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxNDFDM0UiIHN0b3Atb3BhY2l0eT0iMC45OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icnRyYWNrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMCI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyMkQzRUUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOEI1Q0Y2Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJyaHIiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzIyRDNFRSIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMzUlIiBzdG9wLWNvbG9yPSIjMjJEM0VFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNzAlIiBzdG9wLWNvbG9yPSIjOEI1Q0Y2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhCNUNGNiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGZpbHRlciBpZD0icmdsb3ciIHg9Ii0xMjAlIiB5PSItMTIwJSIgd2lkdGg9IjM0MCUiIGhlaWdodD0iMzQwJSI+CiAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjUiLz4KICAgIDwvZmlsdGVyPgogICAgPHBhdHRlcm4gaWQ9InJkb3RzIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8Y2lyY2xlIGN4PSIxLjUiIGN5PSIxLjUiIHI9IjEiIGZpbGw9IiM1QjZCQTgiIGZpbGwtb3BhY2l0eT0iMC4xNSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KCiAgPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNDAwIiByeD0iMTYiIGZpbGw9InVybCgjcmJnKSIvPgogIDxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQwMCIgcng9IjE2IiBmaWxsPSJ1cmwoI3Jkb3RzKSIvPgoKICA8dGV4dCB4PSI0OCIgeT0iNTIiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNFQUYwRkYiPlZhbGlkYXRpb24tZmlyc3Qgcm9hZG1hcDwvdGV4dD4KICA8dGV4dCB4PSI0OCIgeT0iNzYiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMuNSIgZmlsbD0iIzhFOUNDOCI+Tm8gZGF0ZXMuIEVhY2ggc3RhZ2Ugb3BlbnMgb25seSB3aGVuIHRoZSBwcmV2aW91cyBvbmUgcHJvZHVjZXMgZXZpZGVuY2UgJiM4MjEyOyBhbmQgc3RvcHBpbmcgaXMgYSBwZXJtaXR0ZWQgb3V0Y29tZS48L3RleHQ+CiAgPHJlY3QgeD0iNDgiIHk9IjkyIiB3aWR0aD0iMTEwNCIgaGVpZ2h0PSIxLjUiIGZpbGw9InVybCgjcmhyKSIvPgoKICA8IS0tIHlvdSBhcmUgaGVyZSAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTMgMTE4KSI+CiAgICA8cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjI4IiByeD0iMTQiIGZpbGw9IiMyMkQzRUUiIGZpbGwtb3BhY2l0eT0iMC4xNiIgc3Ryb2tlPSIjMjJEM0VFIiBzdHJva2Utb3BhY2l0eT0iMC42Ii8+CiAgICA8dGV4dCB4PSI2NCIgeT0iMTguNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMS41IiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMS4yIiBmaWxsPSIjQTVGM0ZDIj5ZT1UgQVJFIEhFUkU8L3RleHQ+CiAgICA8cGF0aCBkPSJNIDU3IDI4IEwgNjQgMzYgTCA3MSAyOCBaIiBmaWxsPSIjMjJEM0VFIiBmaWxsLW9wYWNpdHk9IjAuNiIvPgogIDwvZz4KCiAgPCEtLSB0cmFjayAtLT4KICA8bGluZSB4MT0iNDgiIHkxPSIxNzYiIHgyPSIxNzciIHkyPSIxNzYiIHN0cm9rZT0idXJsKCNydHJhY2spIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIxNzciIHkxPSIxNzYiIHgyPSIxMTUyIiB5Mj0iMTc2IiBzdHJva2U9IiMzQTQ3ODUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNiA4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KCiAgPGNpcmNsZSBjeD0iMTc3IiBjeT0iMTc2IiByPSIxNiIgZmlsbD0iIzIyRDNFRSIgb3BhY2l0eT0iMC4zNSIgZmlsdGVyPSJ1cmwoI3JnbG93KSIvPgogIDxjaXJjbGUgY3g9IjE3NyIgY3k9IjE3NiIgcj0iOSIgZmlsbD0iIzBCMTAyNiIgc3Ryb2tlPSIjMjJEM0VFIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8Y2lyY2xlIGN4PSI0NTkiIGN5PSIxNzYiIHI9IjgiIGZpbGw9IiMwQjEwMjYiIHN0cm9rZT0iIzgxOENGOCIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICA8Y2lyY2xlIGN4PSI3NDEiIGN5PSIxNzYiIHI9IjgiIGZpbGw9IiMwQjEwMjYiIHN0cm9rZT0iIzVBNjdBOCIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICA8Y2lyY2xlIGN4PSIxMDIzIiBjeT0iMTc2IiByPSI4IiBmaWxsPSIjMEIxMDI2IiBzdHJva2U9IiM0QTU2OTEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CgogIDwhLS0gdjAuMSAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0OCAyMDYpIj4KICAgIDxyZWN0IHdpZHRoPSIyNTgiIGhlaWdodD0iMTQwIiByeD0iMTQiIGZpbGw9InVybCgjcmNhcmROb3cpIiBzdHJva2U9IiMyRTdBOEMiLz4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNTgiIGhlaWdodD0iMyIgcng9IjEuNSIgZmlsbD0iIzIyRDNFRSIvPgogICAgPHRleHQgeD0iMjAiIHk9IjM0IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE5IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjNjdFOEY5Ij52MC4xPC90ZXh0PgogICAgPHRleHQgeD0iMjAiIHk9IjU4IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0LjUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNGMUY1RkYiPlJldHJpZXZhbCBwcm90b3R5cGU8L3RleHQ+CiAgICA8dGV4dCBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyLjUiIGZpbGw9IiM5QkE5RDIiPgogICAgICA8dHNwYW4geD0iMjAiIHk9IjgwIj5DbG9zZWQgd2ViIGFwcCwgcmV0cmlldmFsIG92ZXI8L3RzcGFuPgogICAgICA8dHNwYW4geD0iMjAiIHk9Ijk3Ij5kZW1vIG5vdGVzLCBzb3VyY2VzIFVJLjwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8bGluZSB4MT0iMjAiIHkxPSIxMTAiIHgyPSIyMzgiIHkyPSIxMTAiIHN0cm9rZT0iIzMzNDA3QSIvPgogICAgPHRleHQgeD0iMjAiIHk9IjEyOCIgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNjdFOEY5Ij5DdXJyZW50IHN0YWdlPC90ZXh0PgogIDwvZz4KCiAgPCEtLSB2MC4yIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzMCAyMDYpIj4KICAgIDxyZWN0IHdpZHRoPSIyNTgiIGhlaWdodD0iMTQwIiByeD0iMTQiIGZpbGw9InVybCgjcmNhcmQpIiBzdHJva2U9IiMzQTNGODQiLz4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNTgiIGhlaWdodD0iMyIgcng9IjEuNSIgZmlsbD0iIzgxOENGOCIvPgogICAgPHRleHQgeD0iMjAiIHk9IjM0IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE5IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjQTVCNEZDIj52MC4yPC90ZXh0PgogICAgPHRleHQgeD0iMjAiIHk9IjU4IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0LjUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNFMkU4RkYiPkdyb3VuZGVkIGFuc3dlcnM8L3RleHQ+CiAgICA8dGV4dCBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyLjUiIGZpbGw9IiM4RTlDQzgiPgogICAgICA8dHNwYW4geD0iMjAiIHk9IjgwIj5SZWFsIFF1YW50dW0gbWF0ZXJpYWwsIGZpcnN0PC90c3Bhbj4KICAgICAgPHRzcGFuIHg9IjIwIiB5PSI5NyI+Y29ubmVjdGVkIExMTSwgY2l0YXRpb25zLjwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8bGluZSB4MT0iMjAiIHkxPSIxMTAiIHgyPSIyMzgiIHkyPSIxMTAiIHN0cm9rZT0iIzJBMzQ2MiIvPgogICAgPHRleHQgeD0iMjAiIHk9IjEyOCIgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjN0M4NkM0Ij5HYXRlOiB0ZWFjaGVyLXJldmlld2VkIGV2YWxzPC90ZXh0PgogIDwvZz4KCiAgPCEtLSBQaWxvdCAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2MTIgMjA2KSI+CiAgICA8cmVjdCB3aWR0aD0iMjU4IiBoZWlnaHQ9IjE0MCIgcng9IjE0IiBmaWxsPSJ1cmwoI3JjYXJkKSIgc3Ryb2tlPSIjMkEzNDYyIi8+CiAgICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjU4IiBoZWlnaHQ9IjMiIHJ4PSIxLjUiIGZpbGw9IiM1QTY3QTgiLz4KICAgIDx0ZXh0IHg9IjIwIiB5PSIzNCIgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOSIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzhFOUNDOCI+UGlsb3Q8L3RleHQ+CiAgICA8dGV4dCB4PSIyMCIgeT0iNTgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQuNSIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iI0M5RDNGMCI+VGVhY2hlciwgdGhlbiBzdHVkZW50czwvdGV4dD4KICAgIDx0ZXh0IGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIuNSIgZmlsbD0iIzdFOENCOCI+CiAgICAgIDx0c3BhbiB4PSIyMCIgeT0iODAiPk9uZSBpbmZvcm1hdGljcyB0b3BpYywgc21hbGw8L3RzcGFuPgogICAgICA8dHNwYW4geD0iMjAiIHk9Ijk3Ij5ncm91cCwgc2Nob29sIGFncmVlbWVudC48L3RzcGFuPgogICAgPC90ZXh0PgogICAgPGxpbmUgeDE9IjIwIiB5MT0iMTEwIiB4Mj0iMjM4IiB5Mj0iMTEwIiBzdHJva2U9IiMyQTM0NjIiLz4KICAgIDx0ZXh0IHg9IjIwIiB5PSIxMjgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEhlbHZldGljYSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEuNSIgZmlsbD0iIzZFN0FCOCI+R2F0ZTogcGlsb3QgcmV2aWV3IGRvY3VtZW50PC90ZXh0PgogIDwvZz4KCiAgPCEtLSBQb3N0LXBpbG90IC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg5NCAyMDYpIj4KICAgIDxyZWN0IHdpZHRoPSIyNTgiIGhlaWdodD0iMTQwIiByeD0iMTQiIGZpbGw9InVybCgjcmNhcmQpIiBzdHJva2U9IiMyQTM0NjIiLz4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNTgiIGhlaWdodD0iMyIgcng9IjEuNSIgZmlsbD0iIzRBNTY5MSIvPgogICAgPHRleHQgeD0iMjAiIHk9IjM0IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE5IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjN0U4Q0I4Ij5Qb3N0LXBpbG90PC90ZXh0PgogICAgPHRleHQgeD0iMjAiIHk9IjU4IiBmb250LWZhbWlseT0idWktc2Fucy1zZXJpZiwgc3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtLCBTZWdvZSBVSSwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0LjUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNBRUJBRDgiPkJ1aWxkLCBvciBzdG9wPC90ZXh0PgogICAgPHRleHQgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMi41IiBmaWxsPSIjN0U4Q0I4Ij4KICAgICAgPHRzcGFuIHg9IjIwIiB5PSI4MCI+RXhhbSBQcmVwLCBUdXRvciBNb2RlIGFuZDwvdHNwYW4+CiAgICAgIDx0c3BhbiB4PSIyMCIgeT0iOTciPkluc2lnaHRzIG9ubHkgaWYgZWFybmVkLjwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8bGluZSB4MT0iMjAiIHkxPSIxMTAiIHgyPSIyMzgiIHkyPSIxMTAiIHN0cm9rZT0iIzJBMzQ2MiIvPgogICAgPHRleHQgeD0iMjAiIHk9IjEyOCIgZm9udC1mYW1pbHk9InVpLXNhbnMtc2VyaWYsIHN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNkU3QUI4Ij5HYXRlOiBnbyAvIG5vLWdvIG9uIHJlc3VsdHM8L3RleHQ+CiAgPC9nPgoKICA8cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjExOTkiIGhlaWdodD0iMzk5IiByeD0iMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJBMzU2NiIgc3Ryb2tlLW9wYWNpdHk9IjAuOCIvPgo8L3N2Zz4K" alt="Roadmap: v0.1 retrieval prototype is the current stage, followed by v0.2 grounded answers gated on teacher-reviewed evaluations, then the pilot gated on a pilot review document, then post-pilot build-or-stop decisions."></div>
+        <figcaption>Each stage opens only when the previous one produces evidence &mdash; and stopping is a permitted outcome.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ WHO ============ -->
+  <section>
+    <div class="shell">
+      <p class="kicker">Who this is for</p>
+      <h2>One school at a time, starting with one subject.</h2>
+      <p class="section-lede">The scope is deliberately small. A single school keeps the knowledge base auditable, and a single subject keeps the first evaluation honest.</p>
+
+      <div class="who">
+        <div>
+          <span class="tag">Students</span>
+          <h3>Get unstuck, and check the work</h3>
+          <p>Explanations that match how your class was actually taught, with the source sitting right there to verify.</p>
+        </div>
+        <div>
+          <span class="tag">Teachers</span>
+          <h3>Decide what the AI may use</h3>
+          <p>You approve the materials. You review whether answers cite the right thing. Nothing enters the index without you.</p>
+        </div>
+        <div>
+          <span class="tag">Partners &amp; mentors</span>
+          <h3>Review the method, not the pitch</h3>
+          <p>We are looking for pilot collaboration, RAG evaluation expertise, and infrastructure guidance sized to a measured pilot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section>
+    <div class="shell">
+      <div class="final">
+        <p class="kicker">Try it</p>
+        <h2>Open the lab and ask it something.</h2>
+        <p>Including something it should refuse &mdash; that is the part worth testing. Access is a closed prototype: sign in with Google or X, and note the lab interface is currently in Russian.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="https://quantum-ai.grok.me/" target="_blank" rel="noopener">
+            Enter the lab
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/sazmak/Quantum.Ai" target="_blank" rel="noopener">Read the repository</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="foot-in">
+      <div class="col" style="margin-right:auto">
+        <b>School AI Lab</b>
+        <span style="color:var(--text-soft)">AI built around your school.</span>
+        <span>First deployment: Quantum AI for Quantum STEM School.</span>
+      </div>
+      <div class="col">
+        <b>Product</b>
+        <a href="https://quantum-ai.grok.me/" target="_blank" rel="noopener">Enter the lab</a>
+        <a href="#how">How it works</a>
+        <a href="#status">Current status</a>
+      </div>
+      <div class="col">
+        <b>Documentation</b>
+        <a href="https://github.com/sazmak/Quantum.Ai" target="_blank" rel="noopener">Repository</a>
+        <a href="https://github.com/sazmak/Quantum.Ai/blob/main/docs/PILOT_PLAN.md" target="_blank" rel="noopener">Pilot plan</a>
+        <a href="https://github.com/sazmak/Quantum.Ai/blob/main/docs/PRIVACY_AND_SAFETY.md" target="_blank" rel="noopener">Privacy &amp; safety</a>
+      </div>
+    </div>
+    <p class="foot-note">No formal partnership with Quantum STEM School is claimed &mdash; pilot collaboration is what we are working toward. No learning-outcome, adoption or comparative claims are made until independent evaluation and teacher feedback support them.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var c = document.getElementById("field");
+  if (!c) return;
+  var ctx = c.getContext("2d");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var dots = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), raf = null;
+
+  function seed() {
+    var host = c.parentElement;
+    w = host.clientWidth; h = host.clientHeight;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.min(90, Math.max(28, (w * h) / 16000)));
+    dots = [];
+    for (var i = 0; i < n; i++) {
+      dots.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.5,
+        a: Math.random() * 0.4 + 0.12,
+        vx: (Math.random() - 0.5) * 0.13,
+        vy: (Math.random() - 0.5) * 0.13,
+        hue: Math.random() < 0.34 ? "34,211,238" : "139,92,246"
+      });
+    }
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      if (!reduce) {
+        d.x += d.vx; d.y += d.vy;
+        if (d.x < -6) d.x = w + 6; else if (d.x > w + 6) d.x = -6;
+        if (d.y < -6) d.y = h + 6; else if (d.y > h + 6) d.y = -6;
+      }
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(" + d.hue + "," + d.a + ")";
+      ctx.fill();
+    }
+    if (!reduce) raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (raf) cancelAnimationFrame(raf);
+    seed();
+    frame();
+  }
+
+  start();
+  var t = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(t);
+    t = setTimeout(start, 180);
+  });
+})();
+</script>
+</body>
+</html>
