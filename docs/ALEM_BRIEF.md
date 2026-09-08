@@ -6,7 +6,7 @@ School AI is a school-specific educational AI platform. The first deployment tar
 
 ## What exists
 
-- Closed web prototype (not production): https://school-ai-lab.proud-spice-8211.chatgpt.site
+- Closed web prototype (not production): https://quantum-ai.grok.me/
 - Chat UI, retrieval over **demo notes**, openable sources, usefulness rating, session export
 - Product docs, pilot plan, privacy principles, and evaluation approach in this repository
 - Technical approach: **RAG-first** — retrieve approved school material, then answer with sources
